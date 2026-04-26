@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bloom & Glow — Handcrafted with Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --cream: #fdf6ec;
+      --cream2: #f5ead6;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-dark: #8b6914;
+      --brown: #3a2a10;
+      --text: #2c1f0e;
+      --text-light: #7a6040;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 4rem;
+      background: rgba(253, 246, 236, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--brown);
+    }
+
+    .nav-logo span { color: var(--gold); font-style: italic; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 4rem 6rem 6rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.8rem;
+      font-weight: 500;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--brown);
+      margin-bottom: 1.8rem;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-light);
+      max-width: 400px;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--gold);
+      color: #fff;
+      padding: 0.9rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: transparent;
+      color: var(--brown);
+      padding: 0.9rem 2.2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-outline:hover { background: var(--gold); color: #fff; transform: translateY(-2px); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1.2s 0.2s ease both;
+    }
+
+    .hero-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201,168,76,0.12), rgba(253,246,236,0.3));
+      z-index: 1;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-img-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 550px;
+      background: linear-gradient(135deg, var(--cream2) 0%, #eddfc0 50%, var(--cream2) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .hero-img-placeholder .icon { font-size: 5rem; opacity: 0.5; }
+    .hero-img-placeholder p { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--text-light); font-style: italic; letter-spacing: 0.1em; }
+
+    /* Gold decorative line */
+    .gold-line {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      overflow: hidden;
+      background: var(--gold);
+      padding: 0.9rem 0;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0 2.5rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .marquee-dot { width: 4px; height: 4px; background: rgba(255,255,255,0.5); border-radius: 50%; }
+
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── SECTION COMMON ─── */
+    section { padding: 7rem 6rem; }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300;
+      color: var(--brown);
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    .section-sub {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      line-height: 1.8;
+      max-width: 480px;
+      font-weight: 300;
+    }
+
+    /* ─── ABOUT ─── */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      background: var(--cream2);
+    }
+
+    .about-image-wrap {
+      position: relative;
+    }
+
+    .about-img-box {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(160deg, #eddfc0, var(--cream2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .about-img-box .ph { opacity: 0.4; font-size: 4rem; }
+
+    .about-accent {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 160px;
+      height: 160px;
+      border: 1px solid rgba(201,168,76,0.4);
+      z-index: 0;
+    }
+
+    .about-accent2 {
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      width: 80px;
+      height: 80px;
+      background: var(--gold);
+      opacity: 0.12;
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .stat { border-left: 2px solid var(--gold); padding-left: 1.2rem; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); font-weight: 300; }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); margin-top: 0.2rem; }
+
+    /* ─── PRODUCTS ─── */
+    .products { background: var(--cream); }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 4rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .product-card {
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover { transform: translateY(-8px); }
+
+    .product-card:hover .product-img-wrap::after {
+      opacity: 1;
+    }
+
+    .product-img-wrap {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+      background: var(--cream2);
+    }
+
+    .product-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(201,168,76,0.1);
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .product-card:hover .product-img-wrap img { transform: scale(1.05); }
+
+    .product-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      background: linear-gradient(160deg, var(--cream2), #e8d9bb);
+    }
+
+    .product-placeholder .emoji { font-size: 3.5rem; }
+    .product-placeholder p { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; font-style: italic; color: var(--text-light); }
+
+    .product-tag {
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--brown);
+      margin-bottom: 0.3rem;
+    }
+
+    .product-desc {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    /* ─── FEATURES ─── */
+    .features {
+      background: var(--brown);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+    }
+
+    .features-left {
+      padding: 7rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .features-left .section-eyebrow { color: var(--gold-light); }
+    .features-left .section-title { color: var(--cream); }
+    .features-left .section-sub { color: rgba(253,246,236,0.6); }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    .feature-box {
+      padding: 3rem;
+      border: 1px solid rgba(201,168,76,0.15);
+      transition: background 0.3s;
+    }
+
+    .feature-box:hover { background: rgba(201,168,76,0.06); }
+
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    .feature-desc {
+      font-size: 0.8rem;
+      color: rgba(253,246,236,0.5);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ─── GALLERY ─── */
+    .gallery { background: var(--cream2); padding: 7rem 6rem; }
+
+    .gallery-header { text-align: center; margin-bottom: 4rem; }
+    .gallery-header .section-sub { margin: 0 auto; }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.2rem;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--cream2), #e5d3aa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      min-height: 220px;
+    }
+
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-item:nth-child(1) { grid-row: span 2; min-height: 460px; }
+
+    .gallery-ph { opacity: 0.35; }
+
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(201,168,76,0.08);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .gallery-item:hover::after { opacity: 1; }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { background: var(--cream); text-align: center; }
+
+    .testimonials .section-title { margin-bottom: 0.8rem; }
+    .testimonials .section-sub { margin: 0 auto 4rem; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      background: var(--cream2);
+      padding: 2.5rem;
+      border-bottom: 2px solid var(--gold);
+      text-align: left;
+    }
+
+    .stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1.2rem; letter-spacing: 0.1em; }
+
+    .testimonial-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--brown);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-author {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ─── CTA / WHATSAPP ─── */
+    .cta {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 50%, var(--gold-light) 100%);
+      padding: 7rem 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .cta::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .cta-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 1.2rem;
+      line-height: 1.15;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-sub {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 3rem;
+      line-height: 1.7;
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: #fff;
+      color: var(--gold-dark);
+      padding: 1.1rem 2.8rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-whatsapp:hover {
+      background: var(--brown);
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .wa-icon { font-size: 1.1rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--brown);
+      padding: 4rem 6rem 2rem;
+      color: rgba(253,246,236,0.6);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--cream);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-brand-name span { color: var(--gold); font-style: italic; }
+
+    .footer-tagline {
+      font-size: 0.82rem;
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 280px;
+    }
+
+    .footer-col-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+
+    .footer-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      color: rgba(253,246,236,0.5);
+      transition: color 0.3s;
+      font-weight: 300;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+    }
+
+    .footer-copy { color: rgba(253,246,236,0.35); }
+    .footer-love { color: rgba(253,246,236,0.35); }
+    .footer-love span { color: var(--gold); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 5rem 2rem 3rem; }
+      .hero-right { min-height: 340px; }
+      .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 2rem; }
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+      .products-header { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+      .features { grid-template-columns: 1fr; }
+      .features-left { padding: 5rem 2rem; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1) { grid-row: span 1; min-height: 220px; }
+      .testimonials-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .cta { padding: 5rem 2rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 2rem 2rem; }
+      footer { padding: 3rem 2rem 2rem; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Bloom <span>&</span> Glow</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-left">
+      <p class="hero-eyebrow">✦ Handcrafted with Love</p>
+      <div class="gold-line"></div>
+      <h1 class="hero-title">
+        Where Art<br>Meets <em>Fragrance</em><br>& Beauty
+      </h1>
+      <p class="hero-sub">
+        Handcrafted luxury soaps, floral creations, and decorative gifts — each piece made with care, love, and the finest ingredients.
+      </p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">Explore Collection</a>
+        <a href="#contact" class="btn-outline">Order Now</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!-- REPLACE THIS: <img src="images/hero.jpg" alt="Bloom & Glow" class="hero-img"> -->
+      <div class="hero-img-placeholder">
+        <div class="icon">🌸</div>
+        <p>Your hero image goes here</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">✦ Handmade Soaps <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Soap Flowers <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Luxury Fragrances <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Piggy Banks <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Jewellery Boxes <span class="marquee-dot"></span></span>
+      <span class="marquee-item">✦ Handmade Soaps <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Soap Flowers <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Luxury Fragrances <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Piggy Banks <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Jewellery Boxes <span class="marquee-dot"></span></span>
+      <span class="marquee-item">✦ Handmade Soaps <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Soap Flowers <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Luxury Fragrances <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Piggy Banks <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Jewellery Boxes <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-image-wrap reveal">
+      <div class="about-accent"></div>
+      <div class="about-accent2"></div>
+      <div class="about-img-box">
+        <!-- REPLACE THIS: <img src="images/about.jpg" alt="About us"> -->
+        <span class="ph">🧼</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <p class="section-eyebrow">✦ Our Story</p>
+      <h2 class="section-title">Crafted with<br><em>Passion & Purity</em></h2>
+      <div class="gold-line" style="margin-bottom: 1.5rem;"></div>
+      <p class="section-sub">
+        Every product at Bloom & Glow is made by hand, from scratch, with love. We believe in the beauty of handmade things — the texture, the fragrance, the warmth that only human hands can give.
+      </p>
+      <p class="section-sub" style="margin-top: 1rem;">
+        From artisan soaps to floral creations and decorative gift pieces — each item is crafted to make someone smile.
+      </p>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Handmade</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Product Lines</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">❤️</div>
+          <div class="stat-label">Made with Love</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products" id="products">
+    <div class="products-header reveal">
+      <div>
+        <p class="section-eyebrow">✦ Our Collection</p>
+        <h2 class="section-title">Handcrafted<br><em>Treasures</em></h2>
+      </div>
+      <p class="section-sub">Each piece is made with the finest ingredients and utmost care.</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal">
+        <div class="product-img-wrap">
+          <!-- REPLACE: <img src="images/soap.jpg" alt="Artisan Soaps"> -->
+          <div class="product-placeholder">
+            <div class="emoji">🧼</div>
+            <p>Add soap photo</p>
+          </div>
+        </div>
+        <p class="product-tag">✦ Bestseller</p>
+        <h3 class="product-name">Artisan Soaps</h3>
+        <p class="product-desc">Handmade with natural ingredients. Gentle on skin, beautiful to look at.</p>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img-wrap">
+          <!-- REPLACE: <img src="images/flowers.jpg" alt="Soap Flowers"> -->
+          <div class="product-placeholder">
+            <div class="emoji">🌹</div>
+            <p>Add flower photo</p>
+          </div>
+        </div>
+        <p class="product-tag">✦ New</p>
+        <h3 class="product-name">Soap Flowers</h3>
+        <p class="product-desc">Delicate floral soaps with signature fragrances. Perfect as gifts.</p>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img-wrap">
+          <!-- REPLACE: <img src="images/piggybank.jpg" alt="Piggy Banks"> -->
+          <div class="product-placeholder">
+            <div class="emoji">🐷</div>
+            <p>Add gullak photo</p>
+          </div>
+        </div>
+        <p class="product-tag">✦ Decor</p>
+        <h3 class="product-name">Piggy Banks</h3>
+        <p class="product-desc">Charming handcrafted gullaks — a thoughtful gift for all ages.</p>
+      </div>
+      <div class="product-card reveal">
+        <div class="product-img-wrap">
+          <!-- REPLACE: <img src="images/jewellery-box.jpg" alt="Jewellery Boxes"> -->
+          <div class="product-placeholder">
+            <div class="emoji">💎</div>
+            <p>Add box photo</p>
+          </div>
+        </div>
+        <p class="product-tag">✦ Luxury</p>
+        <h3 class="product-name">Jewellery Boxes</h3>
+        <p class="product-desc">Elegant handcrafted boxes to store your most precious treasures.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES / DARK SECTION -->
+  <div class="features">
+    <div class="features-left reveal">
+      <p class="section-eyebrow">✦ Why Choose Us</p>
+      <h2 class="section-title">Made Different,<br><em>Gifted Special</em></h2>
+      <div class="gold-line" style="margin: 1.5rem 0;"></div>
+      <p class="section-sub">We don't mass produce. We craft each piece with intention — for you to gift, to treasure, or to enjoy every day.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-box reveal">
+        <div class="feature-icon">🌿</div>
+        <h3 class="feature-title">Natural Ingredients</h3>
+        <p class="feature-desc">Only the purest, skin-friendly materials used in every batch.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">🎁</div>
+        <h3 class="feature-title">Gift Ready</h3>
+        <p class="feature-desc">Beautifully packaged — perfect for birthdays, weddings & festivals.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">✋</div>
+        <h3 class="feature-title">100% Handmade</h3>
+        <p class="feature-desc">Every piece shaped and finished by skilled, caring hands.</p>
+      </div>
+      <div class="feature-box reveal">
+        <div class="feature-icon">🌸</div>
+        <h3 class="feature-title">Custom Orders</h3>
+        <p class="feature-desc">Want something unique? We love creating bespoke pieces just for you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-header reveal">
+      <p class="section-eyebrow">✦ Gallery</p>
+      <h2 class="section-title">A Glimpse of<br><em>Our Craft</em></h2>
+      <p class="section-sub">Add your own photos below to showcase your beautiful creations.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <!-- REPLACE: <img src="images/g1.jpg" alt=""> -->
+        <span class="gallery-ph">🌸</span>
+      </div>
+      <div class="gallery-item">
+        <!-- REPLACE: <img src="images/g2.jpg" alt=""> -->
+        <span class="gallery-ph">🧼</span>
+      </div>
+      <div class="gallery-item">
+        <!-- REPLACE: <img src="images/g3.jpg" alt=""> -->
+        <span class="gallery-ph">🌹</span>
+      </div>
+      <div class="gallery-item">
+        <!-- REPLACE: <img src="images/g4.jpg" alt=""> -->
+        <span class="gallery-ph">💎</span>
+      </div>
+      <div class="gallery-item">
+        <!-- REPLACE: <img src="images/g5.jpg" alt=""> -->
+        <span class="gallery-ph">🐷</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="reveal">
+      <p class="section-eyebrow">✦ Love from Customers</p>
+      <h2 class="section-title">What People <em>Say</em></h2>
+      <p class="section-sub">Real stories from people who loved our creations.</p>
+    </div>
+    <div class="testimonials-grid" style="margin-top: 4rem;">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The soap flowers were absolutely stunning. I gifted them at a wedding and everyone wanted to know where I got them!"</p>
+        <p class="testimonial-author">— Priya S.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The jewellery box was beautifully made. You can feel the love and care in every detail. Worth every rupee!"</p>
+        <p class="testimonial-author">— Meera R.</p>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"Ordered custom soaps for Diwali gifting. Everyone loved them! Will definitely order again."</p>
+        <p class="testimonial-author">— Anjali K.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / WHATSAPP -->
+  <section class="cta" id="contact">
+    <p class="cta-eyebrow">✦ Get in Touch</p>
+    <h2 class="cta-title">Ready to Order or<br>Have a Question?</h2>
+    <p class="cta-sub">Chat with us directly on WhatsApp — we're happy to help with custom orders,<br>bulk gifting, or anything else!</p>
+    <!-- REPLACE +91XXXXXXXXXX with your actual WhatsApp number -->
+    <a href="https://wa.me/91XXXXXXXXXX?text=Hi! I'm interested in your products 🌸" class="btn-whatsapp" target="_blank">
+      <span class="wa-icon">💬</span>
+      Chat on WhatsApp
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Bloom <span>&</span> Glow</div>
+        <p class="footer-tagline">Handcrafted soaps, flowers, and decorative gifts — made with love, gifted with joy.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Products</p>
+        <ul class="footer-links">
+          <li><a href="#products">Artisan Soaps</a></li>
+          <li><a href="#products">Soap Flowers</a></li>
+          <li><a href="#products">Piggy Banks</a></li>
+          <li><a href="#products">Jewellery Boxes</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 Bloom & Glow. All rights reserved.</p>
+      <p class="footer-love">Made with <span>♥</span> by hand</p>
+    </div>
+  </footer>
+
+  <!-- SCROLL REVEAL SCRIPT -->
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 100);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Smooth nav highlight
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
